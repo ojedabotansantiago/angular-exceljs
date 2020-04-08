@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from "@angular/core";
-import * as jexcel from 'jexcel';
+import * as jexcel from "jexcel";
 
 @Component({
   selector: "app-table-xls",
@@ -7,7 +7,7 @@ import * as jexcel from 'jexcel';
   styleUrls: ["./table-xls.component.css"]
 })
 export class TableXlsComponent implements AfterViewInit {
-  @ViewChild('sheet',{static: true}) sheet: ElementRef;
+  @ViewChild("sheet", { static: true }) sheet: ElementRef;
 
   data = [
     [2007, 1, "Volkswagen ", "Volkswagen Passat", 1267, 10],
@@ -39,20 +39,53 @@ export class TableXlsComponent implements AfterViewInit {
     [2008, 2, "Toyota ", "Toyota Prius", 165, 1.6],
     [2008, 2, "Peugeot ", "Peugeot 207", 144, 1.4]
   ];
+  dataOptions = [
+    "Alfa Romeo",
+    "Audi",
+    "Bmw",
+    "Chevrolet",
+    "Chrystler",
+    "Dodge",
+    "Ferrari",
+    "Fiat",
+    "Ford",
+    "Honda",
+    "Hyundai",
+    "Jaguar",
+    "Jeep",
+    "Kia",
+    "Mazda",
+    "Mercedez-Benz",
+    "Mitsubish",
+    "Nissan",
+    "Peugeot",
+    "Porsche",
+    "Subaru",
+    "Suzuki",
+    "Toyota",
+    "Volkswagen"
+  ];
+  columOptions = [
+    { type: "text", title: "Car", width: 120 },
+    { type: "text", title: "Tipe", width: 120 },
+    { type: "text", title: "Name one", width: 120 },
+    { type: "text", title: "Name2", width: 120 },
+    { type: "text", title: "CC", width: 120 },
+    { type: "text", title: "CLL", width: 120 },
+    { type: 'dropdown', title:'Make', width:200, source: this.dataOptions },
+    { type: 'calendar', title:'Available', width:200 },
+    /*{ type: 'calendar', title:'Available', width:200 },
+    { type: 'image', title:'Photo', width:120 },
+    { type: 'checkbox', title:'Stock', width:80 },
+    { type: 'numeric', title:'Price', width:100, mask:'$ #.##,00', decimal:',' },
+    { type: 'color', width:100, render:'square', }*/
+  ];
   constructor() {}
 
-  ngAfterViewInit(){
-      jexcel.default(this.sheet.nativeElement, {
-      data:this.data,
-      columns: [
-          { type: 'text', title:'Car', width:120 },
-          { type: 'dropdown', title:'Make', width:200, source:[ "Alfa Romeo", "Audi", "Bmw" ] },
-          { type: 'calendar', title:'Available', width:200 },
-          { type: 'image', title:'Photo', width:120 },
-          { type: 'checkbox', title:'Stock', width:80 },
-          { type: 'numeric', title:'Price', width:100, mask:'$ #.##,00', decimal:',' },
-          { type: 'color', width:100, render:'square', }
-      ]
-  });
+  ngAfterViewInit() {
+    jexcel.default(this.sheet.nativeElement, {
+      data: this.data,
+      columns: this.columOptions
+    });
   }
 }
